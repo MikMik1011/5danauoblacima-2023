@@ -54,15 +54,16 @@ class PlayerDerivedStats {
   assistRatio;
 
   constructor(stats) {
-    this.freePercentage = stats.freeMade / stats.freeAttempted * 100;
-    this.twoPercentage = stats.twoMade / stats.twoAttempted * 100;
-    this.threePercentage = stats.threeMade / stats.threeAttempted * 100;
-    this.points = stats.twoMade * 2 + stats.threeMade * 3 + stats.freeMade;
-    this.valorisation = (this.points + stats.rebounds + stats.assists + stats.steals + stats.blocks - stats.turnovers) -
+    let points = stats.freeMade + stats.twoMade * 2 + stats.threeMade * 3;
+    this.freePercentage = (stats.freeMade / stats.freeAttempted) * 100;
+    this.twoPercentage = (stats.twoMade / stats.twoAttempted) * 100;
+    this.threePercentage = (stats.threeMade / stats.threeAttempted) * 100;
+    this.points = points
+    this.valorisation = (points + stats.rebounds + stats.blocks + stats.assists + stats.steals) -
       (stats.freeAttempted - stats.freeMade + stats.twoAttempted - stats.twoMade + stats.threeAttempted - stats.threeMade + stats.turnovers);
-    this.efgPercentage = (stats.twoMade + stats.threeMade * 1.5) / stats.twoAttempted * 100;
-    this.truePercentage = this.points / (2 * (stats.twoAttempted + 0.44 * stats.freeAttempted)) * 100;
-    this.assistRatio = stats.assists / (stats.twoAttempted + stats.threeAttempted + stats.freeAttempted + stats.turnovers) * 100;
+    this.efgPercentage = (stats.twoMade + stats.threeMade * 1.5) / (stats.twoAttempted + stats.threeAttempted) * 100;
+    this.truePercentage = this.points / (2 * (stats.twoAttempted + stats.threeAttempted + 0.475 * stats.freeAttempted)) * 100;
+    this.assistRatio = stats.assists / (stats.twoAttempted + stats.threeAttempted + stats.freeAttempted * 0.475 + stats.assists + stats.turnovers) * 100;
 
     for(let key in this) {
       this[key] = Number(this[key].toFixed(1));
