@@ -29,9 +29,4 @@ class Memory {
 
 module.exports = { Memory };
 
-let memory = new Memory('data/L9HomeworkChallengePlayersInput.csv');
-
-let testPlayer = memory.getPlayer("Sifiso Abdalla");
-console.log(JSON.stringify(testPlayer));
-
 
