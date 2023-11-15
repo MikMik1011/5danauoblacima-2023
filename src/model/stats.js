@@ -38,7 +38,8 @@ class PlayerAverageStats extends PlayerBasicStats {
     for(let game of gameStats) {
       for(let key in game) this[key] += game[key];
     }
-    for(let key in this) this[key] = Number((this[key] / gamesPlayed).toFixed(1));
+    
+    for(let key in this) this[key] /= gamesPlayed;
   }
 
 }
@@ -64,10 +65,6 @@ class PlayerDerivedStats {
     this.efgPercentage = (stats.twoMade + stats.threeMade * 1.5) / (stats.twoAttempted + stats.threeAttempted) * 100;
     this.truePercentage = this.points / (2 * (stats.twoAttempted + stats.threeAttempted + 0.475 * stats.freeAttempted)) * 100;
     this.assistRatio = stats.assists / (stats.twoAttempted + stats.threeAttempted + stats.freeAttempted * 0.475 + stats.assists + stats.turnovers) * 100;
-
-    for(let key in this) {
-      this[key] = Number(this[key].toFixed(1));
-    }
   }
 };
 
