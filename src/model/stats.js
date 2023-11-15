@@ -17,17 +17,18 @@ class PlayerBasicStats {
 
       stats[key] = Number(stats[key]);
     }
-    this.freeMade = stats["FTM"] || 0;
-    this.freeAttempted = stats["FTA"] || 0;
-    this.twoMade = stats["2PM"] || 0;
-    this.twoAttempted = stats["2PA"] || 0;
-    this.threeMade = stats["3PM"] || 0;
-    this.threeAttempted = stats["3PA"] || 0;
-    this.rebounds = stats["REB"] || 0;
-    this.blocks = stats["BLK"] || 0;
-    this.assists = stats["AST"] || 0;
-    this.steals = stats["STL"] || 0;
-    this.turnovers = stats["TOV"] || 0;
+    this.freeMade = stats["FTM"];
+    this.freeAttempted = stats["FTA"];
+    this.twoMade = stats["2PM"];
+    this.twoAttempted = stats["2PA"];
+    this.threeMade = stats["3PM"];
+    this.threeAttempted = stats["3PA"];
+    this.rebounds = stats["REB"];
+    this.blocks = stats["BLK"];
+    this.assists = stats["AST"];
+    this.steals = stats["STL"];
+    this.turnovers = stats["TOV"];
+    ensureValues(this);
   }
 };
 
@@ -40,6 +41,7 @@ class PlayerAverageStats extends PlayerBasicStats {
     }
 
     for(let key in this) this[key] /= gamesPlayed;
+    ensureValues(this);
   }
 
 }
@@ -65,17 +67,15 @@ class PlayerDerivedStats {
     this.efgPercentage = (stats.twoMade + stats.threeMade * 1.5) / (stats.twoAttempted + stats.threeAttempted) * 100;
     this.truePercentage = this.points / (2 * (stats.twoAttempted + stats.threeAttempted + 0.475 * stats.freeAttempted)) * 100;
     this.assistRatio = stats.assists / (stats.twoAttempted + stats.threeAttempted + stats.freeAttempted * 0.475 + stats.assists + stats.turnovers) * 100;
-    this.ensureValues();
+    ensureValues(this);
   }
 
-  ensureValues() {
-    for(let key in this) {
-      if(!this[key]) this[key] = 0;
-    }
-  }
 };
 
-
-
+const ensureValues = (object) => {
+  for(let key in object) {
+    if(!object[key]) object[key] = 0;
+  }
+}
 module.exports = { PlayerBasicStats, PlayerAverageStats, PlayerDerivedStats };
 
