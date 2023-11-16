@@ -54,7 +54,7 @@ class PlayerDerivedStats {
   twoPercentage;
   threePercentage;
   points;
-  valorisation;
+  valorization;
   efgPercentage;
   truePercentage;
   assistRatio;
@@ -69,7 +69,7 @@ class PlayerDerivedStats {
     this.twoPercentage = (stats.twoMade / stats.twoAttempted) * 100;
     this.threePercentage = (stats.threeMade / stats.threeAttempted) * 100;
     this.points = points
-    this.valorisation = (points + stats.rebounds + stats.blocks + stats.assists + stats.steals) -
+    this.valorization = (points + stats.rebounds + stats.blocks + stats.assists + stats.steals) -
       (stats.freeAttempted - stats.freeMade + stats.twoAttempted - stats.twoMade + stats.threeAttempted - stats.threeMade + stats.turnovers);
     this.efgPercentage = (stats.twoMade + stats.threeMade * 1.5) / (stats.twoAttempted + stats.threeAttempted) * 100;
     this.truePercentage = this.points / (2 * (stats.twoAttempted + stats.threeAttempted + 0.475 * stats.freeAttempted)) * 100;

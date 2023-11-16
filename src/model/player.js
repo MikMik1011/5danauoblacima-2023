@@ -51,7 +51,7 @@ class Player {
         "turnovers": this.averageStats.turnovers
       },
       "advanced": {
-        "valorisation": this.derivedStats.valorisation,
+        "valorization": this.derivedStats.valorization,
         "effectiveFieldGoalPercentage": this.derivedStats.efgPercentage,
         "trueShootingPercentage": this.derivedStats.truePercentage,
         "hollingerAssistRatio": this.derivedStats.assistRatio

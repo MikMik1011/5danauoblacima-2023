@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./src/server.js",
+    "dev": "npx nodemon ./src/server.js",
+    "test": "npx mocha"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,8 @@
     "fastify": "^4.24.3"
   },
   "devDependencies": {
-    "typescript": "^5.2.2"
+    "chai": "^4.3.10",
+    "mocha": "^10.2.0",
+    "nodemon": "^3.0.1"
   }
 }
