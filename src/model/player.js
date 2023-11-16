@@ -3,6 +3,7 @@ const { PlayerBasicStats, PlayerAverageStats, PlayerDerivedStats } = require('./
 class Player {
   playerName;
   gamesPlayed = 0;
+  gamesCalculated = 0;
   position;
   gameStats = [];
   averageStats;
@@ -18,16 +19,8 @@ class Player {
   addNewGame(stats) {
     this.gameStats.push(new PlayerBasicStats(stats));
     this.gamesPlayed++;
-    this.calculateAverageStats();
-    this.calculateDerivedStats();
-  }
-
-  calculateAverageStats() {
-    this.averageStats = new PlayerAverageStats(this.gameStats, this.gamesPlayed);
-  }
-
-  calculateDerivedStats() {
-    this.derivedStats = new PlayerDerivedStats(this.averageStats);
+    this.averageStats = new PlayerAverageStats();
+    this.derivedStats = new PlayerDerivedStats();
   }
 
   toJSON() {
@@ -64,8 +57,8 @@ class Player {
         "hollingerAssistRatio": this.derivedStats.assistRatio
       }
     }
-    roundNumbers(json)
-    return json
+    roundNumbers(json);
+    return json;
   }
 }
 

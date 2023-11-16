@@ -1,11 +1,11 @@
 const fastify = require("fastify")();
-const {Memory} = require("./memory");
+const {PlayerStorage} = require("./playerStorage");
 
-let memory = new Memory('data/L9HomeworkChallengePlayersInput.csv');
+let playerStorage = new PlayerStorage('data/L9HomeworkChallengePlayersInput.csv');
 
 fastify.get("/stats/player/:playerName", async (request, reply) => {
     const { playerName } = request.params;
-    let response = memory.getPlayer(playerName);
+    let response = playerStorage.getPlayer(playerName);
     if(response === undefined) {
         reply.code(404);
         return {"error": "Player not found!"};
@@ -13,6 +13,8 @@ fastify.get("/stats/player/:playerName", async (request, reply) => {
 
     return response;
 });
+
+module.exports = fastify;
 
 fastify.listen({"port": 3000}, (err) => {
     if (err) {

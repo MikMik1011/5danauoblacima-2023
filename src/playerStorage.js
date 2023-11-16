@@ -2,7 +2,7 @@ const fs = require('fs');
 const {parse} = require('csv-parse/sync');
 const { Player } = require('./model/player');
 
-class Memory {
+class PlayerStorage {
     players = {};
     
     constructor(fileName) {
@@ -23,10 +23,17 @@ class Memory {
     }
 
     getPlayer(name) {
-        return this.players[name.replace(/\s/g, '')];
+        let player = this.players[name.replace(/\s/g, '')];
+        if(player === undefined) return undefined;
+        if(player.gamesCalculated !== player.gamesPlayed) {
+            player.averageStats.calculate(player.gameStats, player.gamesPlayed);
+            player.derivedStats.calculate(player.averageStats);
+            player.gamesCalculated = player.gamesPlayed;
+        }
+        return player;
     }
 }
 
-module.exports = { Memory };
+module.exports = { PlayerStorage };
 
 

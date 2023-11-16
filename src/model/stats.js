@@ -34,8 +34,11 @@ class PlayerBasicStats {
 
 class PlayerAverageStats extends PlayerBasicStats {
 
-  constructor(gameStats, gamesPlayed) {
+  constructor() {
     super({})
+  }
+
+  calculate(gameStats, gamesPlayed) {
     for(let game of gameStats) {
       for(let key in game) this[key] += game[key];
     }
@@ -56,7 +59,11 @@ class PlayerDerivedStats {
   truePercentage;
   assistRatio;
 
-  constructor(stats) {
+  constructor() {
+    ensureValues(this);
+  }
+
+  calculate(stats) {
     let points = stats.freeMade + stats.twoMade * 2 + stats.threeMade * 3;
     this.freePercentage = (stats.freeMade / stats.freeAttempted) * 100;
     this.twoPercentage = (stats.twoMade / stats.twoAttempted) * 100;
@@ -74,7 +81,7 @@ class PlayerDerivedStats {
 
 const ensureValues = (object) => {
   for(let key in object) {
-    if(!object[key]) object[key] = 0;
+    if(!object[key] || object[key] === Infinity) object[key] = 0;
   }
 }
 module.exports = { PlayerBasicStats, PlayerAverageStats, PlayerDerivedStats };
