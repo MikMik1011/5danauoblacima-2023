@@ -1,4 +1,4 @@
-# Competition Project - Fastify API
+# 5 dana u oblacima 2023 - API for basketball players stats
 
 ## Environment Setup
 
